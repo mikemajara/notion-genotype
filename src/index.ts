@@ -2,23 +2,17 @@ import { Client } from "@notionhq/client";
 import * as fs from "fs";
 import config from "../config";
 
-console.log(`config`, config);
-
 // Initialize a new Notion client with the API key
 const notion = new Client({
   auth: config.notionApiKey,
 });
 
-console.log(`notion client`, notion);
-
 // Function to fetch a Notion database by ID and return its properties
 async function getDatabaseProperties(databaseId: string): Promise<any> {
-  console.log(`getting database properties for ${databaseId}`);
   try {
     const response = await notion.databases.retrieve({
       database_id: databaseId,
     });
-    console.log(`response`, response);
 
     return response.properties as any;
   } catch (error) {
@@ -26,8 +20,6 @@ async function getDatabaseProperties(databaseId: string): Promise<any> {
       `Error retrieving properties for database ${databaseId}:`,
       error
     );
-
-    console.error(error);
   }
 }
 
